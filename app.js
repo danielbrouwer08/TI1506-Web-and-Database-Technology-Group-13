@@ -31,5 +31,4 @@ var main = function () {
 	console.log(ToDo2.getReminderDate());
 
 };
-
 $(document).ready(main);
