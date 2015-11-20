@@ -3,18 +3,7 @@ var main = function () {
 
 	// Array met alle todo items.
 	var TodoArray = new Array();
-	
-	console.log("meh");	
-	
-	//Prototype functions for ToDo
-	ToDo.prototype.toString = function(){return "ToDo: " + this.subject + ", " + this.priority + ", " + this.reminderDate};
-	ToDo.prototype.getsubject = function(){return this.subject;};
-	ToDo.prototype.getExtraInfo = function(){return this.extrainfo};
-	ToDo.prototype.getDueDate = function(){return this.dueDate};
-	ToDo.prototype.getPriority = function(){return this.priority;};
-	ToDo.prototype.getReminderDate = function(){return this.reminderDate;};
-
-	
+		
 	//Create 2 ToDo objects
 	var ToDo1 = new ToDo("Do homework","18-11-2015 18:00",3,"17-11-2015 18:00");
 	var ToDo2 = new ToDo("Deadline quiz 2","23-11-2015 20:00",5,"22-11-2015 12:00");
@@ -128,6 +117,36 @@ var main = function () {
 	});
 	
 	
+	//Get current date:
+	 var today = new Date();
+	 var dd = today.getDate();
+	 var mm = today.getMonth()+1;
+	 var yy = today.getYear();
+	
+	//Sort the list by date:
+	for(var i=0;i<ToDoArray.length;i++)
+		{
+			var temp = ToDoArray[i].getDueDate().split("-"); 
+			if(temp[0]===dd && temp[2]===yy) //if day and year matches add to the todaylist
+				{
+					var $temp = $("<p>");
+					$temp.text = ToDoArray[i].toString();
+					$("#TodayList").append();
+				}
+			if(temp[0]>dd-3 && temp[0]<dd+4 && temp[2] === yy) //TEMP teststatement needs to be adjusted!!! -> fix: extract weeknumbers
+				{
+					var $temp = $("<p>");
+					$temp.text = ToDoArray[i].toString();
+					$("#7DaysList").append();
+				}
+			if(temp[1]===mm && temp[2]===yy)//if month and year matches add to the monthlist
+				{
+					var $temp = $("<p>");
+					$temp.text = ToDoArray[i].toString();
+					$("#MonthList").append();
+				}
+			
+		}
 	
 };
 $(document).ready(main);
@@ -140,6 +159,14 @@ function ToDo(subject,extraInfo,dueDate,priority,reminderDate){
 	this.dueDate = dueDate;
 	this.priority = priority;
 	this.reminderDate = reminderDate;
+	
+	//Prototype functions for ToDo
+	ToDo.prototype.toString = function(){return "ToDo: " + this.subject + ", " + this.extraInfo + ", " + this.dueDate + ", " + this.priority + ", " + this.reminderDate};
+	ToDo.prototype.getsubject = function(){return this.subject;};
+	ToDo.prototype.getExtraInfo = function(){return this.extrainfo};
+	ToDo.prototype.getDueDate = function(){return this.dueDate};
+	ToDo.prototype.getPriority = function(){return this.priority;};
+	ToDo.prototype.getReminderDate = function(){return this.reminderDate;};
 }
 
 
