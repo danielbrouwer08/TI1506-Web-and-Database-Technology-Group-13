@@ -1,25 +1,19 @@
 var main = function () {
 	"use strict";
 
+	// Array met alle todo items.
+	var TodoArray = new Array();
+	
 	console.log("meh");	
 	
-	//Constructor for ToDo
-	function ToDo(subject,extraInfo,dueDate,priority,reminderDate){
-		this.subject = subject;
-		this.extraInfo = extraInfo;
-		this.dueDate = dueDate;
-		this.priority = priority;
-		this.reminderDate = reminderDate;
-	}
-	
-	
 	//Prototype functions for ToDo
-	ToDo.prototype.toString = function(){return "ToDo: " + this.description + ", " + this.priority + ", " + this.reminderDate};
+	ToDo.prototype.toString = function(){return "ToDo: " + this.subject + ", " + this.priority + ", " + this.reminderDate};
 	ToDo.prototype.getsubject = function(){return this.subject;};
 	ToDo.prototype.getExtraInfo = function(){return this.extrainfo};
 	ToDo.prototype.getDueDate = function(){return this.dueDate};
 	ToDo.prototype.getPriority = function(){return this.priority;};
 	ToDo.prototype.getReminderDate = function(){return this.reminderDate;};
+
 	
 	//Create 2 ToDo objects
 	var ToDo1 = new ToDo("Do homework","18-11-2015 18:00",3,"17-11-2015 18:00");
@@ -130,10 +124,25 @@ var main = function () {
 		var da = $("#DateIn input").val();
 		var remD = $("#ReminderIn input").val();
 		
-		ToDo(desc,ExInfo,da,prio,remD);
+		ToDoArray.push(ToDo(desc,ExInfo,da,prio,remD));
 	});
 	
 	
 	
 };
 $(document).ready(main);
+
+
+//Constructor for ToDo
+function ToDo(subject,extraInfo,dueDate,priority,reminderDate){
+	this.subject = subject;
+	this.extraInfo = extraInfo;
+	this.dueDate = dueDate;
+	this.priority = priority;
+	this.reminderDate = reminderDate;
+}
+
+
+
+
+
