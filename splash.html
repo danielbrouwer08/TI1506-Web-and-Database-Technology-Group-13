@@ -1,55 +1,78 @@
 <!doctype html>
 <html>
-	<head>
-		<title>NeverForgetMe</title>
+<head>
+<title>NeverForgetMe</title>
 
-	</head>
+</head>
 
-	<body>
-		<header>
-			<img src="images/logo.png" alt="Logo of the website">
-				<nav>
-					<a href="splash.html">HOME</a> |
-					<a href="#">LOGIN</a> |
-					<a href="app.html">APP</a> |
-					<a href="#">REGISTER</a> |
-					<a href="#">CONTACT</a> |
-					<a href="#">HELP</a>
-				</nav>
-			</header>
-			<main>
-				<ul>
-					<li>
-				ToDo lists Fast and Easy
-					</li>
-					<li>
-				Never forget a thing with Reminders
-					</li>
-					<li>
-				Automatically sorted!
-					</li>
-					<li>
-				Offline useable!
-					</li>
-					<li>
-				Add locations
-					</li>
-					<li>
-				Synch with yout favorite calander app!
-					</li>
-					<li>
-				For everyone to use!
-					</li>
-				</ul>
-				
-				Make your Free account now
-				
-				<img src="images/arrow.png" alt="An arrow pointing to the signup button">
-				
-				<a href="#"><img src="images/signup.png" alt="The signup button"></a>
+<body>
+	<header>
+		<img src="images/logo.png" alt="Logo of the website">
+		<nav>
+			<a href="splash.html">HOME</a> | <a href="#">LOGIN</a> | <a
+				href="app.html">APP</a> | <a href="#" onClick="showDialog()">REGISTER</a>
+			| <a href="#">CONTACT</a> | <a href="#">HELP</a>
+		</nav>
+	</header>
+	<main>
+	<ul>
+		<li>ToDo lists Fast and Easy</li>
+		<li>Never forget a thing with Reminders</li>
+		<li>Automatically sorted!</li>
+		<li>Offline useable!</li>
+		<li>Add locations</li>
+		<li>Synch with yout favorite calander app!</li>
+		<li>For everyone to use!</li>
+	</ul>
 
-			</main>
-			<footer>
-			</footer>
-		</body>
-	</html>
+	Make your Free account now <img src="images/arrow.png"
+		alt="An arrow pointing to the signup button">
+
+	<section class="signup-button">
+
+		<button>
+			<img src="images/signup.png" alt="The signup button">
+		</button>
+
+	</section>
+
+
+	<div id="signupDialog" title="Signup Dialog">
+
+		<h2>Fill in the details to make an account</h2>
+
+		<section class="username-input">
+			<p>Username:</p>
+			<input type="text" size="25">
+		</section>
+
+		<section class="password-input">
+			<p>Password:</p>
+			<input type="password" size="25">
+		</section>
+
+		<section class="email-input">
+			<p>Email address::</p>
+			<input type="text" size="25">
+		</section>
+
+		<section class="confirm-button">
+			<button>
+				<img src="images/confirm.png" alt="The confirm button">
+			</button>
+		</section>
+
+	</div>
+
+	</main>
+	<footer> </footer>
+
+
+	<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+
+
+	<script src="splash.js"></script>
+
+</body>
+</html>
