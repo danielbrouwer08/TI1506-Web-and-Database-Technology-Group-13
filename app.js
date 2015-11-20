@@ -2,34 +2,44 @@ var main = function () {
 	"use strict";
 
 	// Array met alle todo items.
-	var TodoArray = new Array();
+	var ToDoArray = new Array();
 	
 	console.log("meh");	
 	
+	//Constructor for ToDo
+	function ToDo(subject,extraInfo,dueDate,priority,reminderDate){
+		this.subject = subject;
+		this.extraInfo = extraInfo;
+		this.dueDate = dueDate;
+		this.priority = priority;
+		this.reminderDate = reminderDate;
+	};
+	
 	//Prototype functions for ToDo
-	ToDo.prototype.toString = function(){return "ToDo: " + this.subject + ", " + this.priority + ", " + this.reminderDate};
-	ToDo.prototype.getsubject = function(){return this.subject;};
+	ToDo.prototype.toString = function(){return "ToDo: " + this.subject + " \n " +  this.extraInfo + " \n" + this.dueDate  + " \n " + this.priority + "\n " + this.reminderDate};
+	ToDo.prototype.getsubject = function(){return this.subject};
 	ToDo.prototype.getExtraInfo = function(){return this.extrainfo};
 	ToDo.prototype.getDueDate = function(){return this.dueDate};
-	ToDo.prototype.getPriority = function(){return this.priority;};
-	ToDo.prototype.getReminderDate = function(){return this.reminderDate;};
+	ToDo.prototype.getPriority = function(){return this.priority};
+	ToDo.prototype.getReminderDate = function(){return this.reminderDate};
 
 	
 	//Create 2 ToDo objects
-	var ToDo1 = new ToDo("Do homework","18-11-2015 18:00",3,"17-11-2015 18:00");
-	var ToDo2 = new ToDo("Deadline quiz 2","23-11-2015 20:00",5,"22-11-2015 12:00");
+	ToDoArray.push(new ToDo("Do homework", "Extrainfo","18-11-2015 18:00",3,"17-11-2015 18:00"));
+	ToDoArray.push(new ToDo("Deadline quiz 2", "extra info" , "23-11-2015 20:00",5,"22-11-2015 12:00"));
 	
-	/*
-	console.log(ToDo1.toString());
-	console.log(ToDo1.getDescription());
+	
+	/*console.log(ToDoArray[0].toString());
+	console.log(ToDo1.getSubject());
+	console.log(ToDo1.get)
 	console.log(ToDo1.getPriority());
-	console.log(ToDo1.getReminderDate());
+	console.log(ToDo1.getReminderDate());*/
 	
-	console.log(ToDo2.toString());
+	/*console.log(ToDo2.toString());
 	console.log(ToDo2.getDescription());
 	console.log(ToDo2.getPriority());
-	console.log(ToDo2.getReminderDate());
-	*/
+	console.log(ToDo2.getReminderDate());*/
+	
 	
 	// Laat alle Today zien
 	$(".TodayButton").on("click","button", function(){
@@ -116,17 +126,28 @@ var main = function () {
 		
 	});
 	
-	$("#AddButton").on("click", "button", function(){
+	$(".AddButton").on("click", "button", function(){
 		
+		console.log(" Add geklikt");
 		var desc = $("#TaskDescIn input").val();
-		var ExInf= $("#ExtraInfoIn input").val();
-		Var prio = 0; 
+		var ExInfo= $("#ExtraInfoIn input").val();
+		var prio = 0; 
 		var da = $("#DateIn input").val();
 		var remD = $("#ReminderIn input").val();
 		
 		ToDoArray.push(ToDo(desc,ExInfo,da,prio,remD));
+		
+		for ( var i = 0; i < ToDoArray.length; i++){
+			
+			console.log(ToDoArray[i].toString());
+		}
 	});
 	
+	
+	for ( var i = 0; i < ToDoArray.length; i++){
+		
+		console.log(ToDoArray[i].toString());
+	}
 	
 	
 };
