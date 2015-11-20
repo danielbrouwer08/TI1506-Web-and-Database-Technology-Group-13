@@ -4,8 +4,9 @@ var main = function () {
 	console.log("meh");	
 	
 	//Constructor for ToDo
-	function ToDo(description,dueDate,priority,reminderDate){
-		this.description = description;
+	function ToDo(subject,extraInfo,dueDate,priority,reminderDate){
+		this.subject = subject;
+		this.extraInfo = extraInfo;
 		this.dueDate = dueDate;
 		this.priority = priority;
 		this.reminderDate = reminderDate;
@@ -14,7 +15,9 @@ var main = function () {
 	
 	//Prototype functions for ToDo
 	ToDo.prototype.toString = function(){return "ToDo: " + this.description + ", " + this.priority + ", " + this.reminderDate};
-	ToDo.prototype.getDescription = function(){return this.reminderDate;};
+	ToDo.prototype.getsubject = function(){return this.subject;};
+	ToDo.prototype.getExtraInfo = function(){return this.extrainfo};
+	ToDo.prototype.getDueDate = function(){return this.dueDate};
 	ToDo.prototype.getPriority = function(){return this.priority;};
 	ToDo.prototype.getReminderDate = function(){return this.reminderDate;};
 	
@@ -71,9 +74,64 @@ var main = function () {
 	});
 	
 	
+	// Add Task 
 	
 	
 	
+	
+	$("#TaskDescIn input").val("Subject");
+	$("#TaskDescIn").on("click", "input", function(){
+		
+		var TDIN = $("#TaskDescIn input");
+		
+		if( TDIN.val() === "Subject"){
+			TDIN.val("");
+		}
+		
+	});
+	
+	
+	$("#ExtraInfoIn input").val("Extra info");
+	$("#ExtraInfoIn").on("click","input",function(){
+		
+		if($("#ExtraInfoIn input").val() === "Extra info"){
+			$("#ExtraInfoIn input").val("");
+		}
+		
+	});
+	
+	
+	$("#DateIn input").val("d-m-year");
+	$("#DateIn").on("click","input",function(){
+		
+		if($("#DateIn input").val() === "d-m-year"){
+			$("#DateIn input").val("");
+		}
+		
+	});
+	
+	// priority
+	
+	
+	$("#ReminderIn input").val("d-m-year");
+	$("#ReminderIn").on("click","input",function(){
+		
+		if($("#ReminderIn input").val() === "d-m-year"){
+			$("#ReminderIn input").val("");
+		}
+		
+	});
+	
+	$("#AddButton").on("click", "button", function(){
+		
+		var desc = $("#TaskDescIn input").val();
+		var ExInf= $("#ExtraInfoIn input").val();
+		Var prio = 0; 
+		var da = $("#DateIn input").val();
+		var remD = $("#ReminderIn input").val();
+		
+		ToDo(desc,ExInfo,da,prio,remD);
+	});
 	
 	
 	
