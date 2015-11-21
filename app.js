@@ -80,12 +80,12 @@ var main = function () {
 	});
 	
 	
-	// Add Task 
+	/* Add Task 
+	*
+	*
+	*
+	*/
 	
-	
-	
-	
-	$("#TaskDescIn input").val("Subject");
 	$("#TaskDescIn").on("click", "input", function(){
 		
 		var TDIN = $("#TaskDescIn input");
@@ -97,7 +97,6 @@ var main = function () {
 	});
 	
 	
-	$("#ExtraInfoIn input").val("Extra info");
 	$("#ExtraInfoIn").on("click","input",function(){
 		
 		if($("#ExtraInfoIn input").val() === "Extra info"){
@@ -106,8 +105,7 @@ var main = function () {
 		
 	});
 	
-	
-	$("#DateIn input").val("d-m-year");
+
 	$("#DateIn").on("click","input",function(){
 		
 		if($("#DateIn input").val() === "d-m-year"){
@@ -119,7 +117,6 @@ var main = function () {
 	// priority
 	
 	
-	$("#ReminderIn input").val("d-m-year");
 	$("#ReminderIn").on("click","input",function(){
 		
 		if($("#ReminderIn input").val() === "d-m-year"){
