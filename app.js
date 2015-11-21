@@ -7,25 +7,6 @@ var main = function () {
 	
 	console.log("meh");	
 	
-	//Constructor for ToDo
-	function ToDo(subject,extraInfo,dueDate,priority,reminderDate){
-		this.subject = subject;
-		this.extraInfo = extraInfo;
-		this.dueDate = dueDate;
-		this.priority = priority;
-		this.reminderDate = reminderDate;
-	};
-	
-	//Prototype functions for ToDo
-	ToDo.prototype.toString = function(){return "ToDo: " + this.subject + " \n " +  this.extraInfo + " \n" + this.dueDate  + " \n " + this.priority + "\n " + this.reminderDate};
-	ToDo.prototype.getsubject = function(){return this.subject};
-	ToDo.prototype.getExtraInfo = function(){return this.extrainfo};
-	ToDo.prototype.getDueDate = function(){return this.dueDate};
-	ToDo.prototype.getPriority = function(){return this.priority};
-	ToDo.prototype.getReminderDate = function(){return this.reminderDate};
-
-	
-
 	//Create 2 ToDo objects
 	ToDoArray.push(new ToDo("Do homework", "Extrainfo","18-11-2015 18:00",3,"17-11-2015 18:00"));
 	ToDoArray.push(new ToDo("Deadline quiz 2", "extra info" , "23-11-2015 20:00",5,"22-11-2015 12:00"));
@@ -137,7 +118,7 @@ var main = function () {
 		var da = $("#DateIn input").val();
 		var remD = $("#ReminderIn input").val();
 		
-		ToDoArray.push(ToDo(desc,ExInfo,da,prio,remD));
+		ToDoArray.push(new ToDo(desc,ExInfo,da,prio,remD));
 		
 		for ( var i = 0; i < ToDoArray.length; i++){
 			
@@ -164,20 +145,20 @@ var main = function () {
 			var temp = ToDoArray[i].getDueDate().split("-"); 
 			if(temp[0]===dd && temp[2]===yy) //if day and year matches add to the todaylist
 				{
-					var $temp = $("<p>");
-					$temp.text = ToDoArray[i].toString();
+					var $temp = $("<li>");
+					$temp.text(ToDoArray[i].toString());
 					$("#TodayList").append();
 				}
 			if(temp[0]>dd-3 && temp[0]<dd+4 && temp[2] === yy) //TEMP teststatement needs to be adjusted!!! -> fix: extract weeknumbers
 				{
-					var $temp = $("<p>");
-					$temp.text = ToDoArray[i].toString();
+					var $temp = $("<li>");
+					$temp.text(ToDoArray[i].toString());
 					$("#7DaysList").append();
 				}
 			if(temp[1]===mm && temp[2]===yy)//if month and year matches add to the monthlist
 				{
-					var $temp = $("<p>");
-					$temp.text = ToDoArray[i].toString();
+					var $temp = $("<li>");
+					$temp.text(ToDoArray[i].toString());
 					$("#MonthList").append();
 				}
 			
