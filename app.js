@@ -124,14 +124,22 @@ var main = function () {
 			
 			console.log(ToDoArray[i].toString());
 		}
+		
+		sortlist(); //sort list to week, day month every time todo gets added.
+		
+		window.alert("ToDo addded");
 	});
 	
 	
-
+function sortlist(){
+	
+	console.log("sorting the following list:");
+	
 	for ( var i = 0; i < ToDoArray.length; i++){
 		
 		console.log(ToDoArray[i].toString());
 	}
+	
 
 	//Get current date:
 	 var today = new Date();
@@ -142,30 +150,39 @@ var main = function () {
 	//Sort the list by date:
 	for(var i=0;i<ToDoArray.length;i++)
 		{
+	
+			//var temp = new Array();
+		
+			//werkt nog niet :HIER VERDER
+			
 			var temp = ToDoArray[i].getDueDate().split("-"); 
+			
 			if(temp[0]===dd && temp[2]===yy) //if day and year matches add to the todaylist
 				{
 					var $temp = $("<li>");
 					$temp.text(ToDoArray[i].toString());
-					$("#TodayList").append();
+					$("#TodayList").append($temp);
 				}
 			if(temp[0]>dd-3 && temp[0]<dd+4 && temp[2] === yy) //TEMP teststatement needs to be adjusted!!! -> fix: extract weeknumbers
 				{
 					var $temp = $("<li>");
 					$temp.text(ToDoArray[i].toString());
-					$("#7DaysList").append();
+					$("#7DaysList").append($temp);
 				}
 			if(temp[1]===mm && temp[2]===yy)//if month and year matches add to the monthlist
 				{
 					var $temp = $("<li>");
 					$temp.text(ToDoArray[i].toString());
-					$("#MonthList").append();
+					$("#MonthList").append($temp);
 				}
 			
 		}
 
-	
 };
+};
+
+
+
 $(document).ready(main);
 
 
