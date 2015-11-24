@@ -5,11 +5,11 @@ var main = function () {
 
 	var ToDoArray = new Array();
 	
-	console.log("meh");	
+	//console.log("meh");	
 	
-	//Create 2 ToDo objects
-	ToDoArray.push(new ToDo("Do homework", "Extrainfo","18-11-2015 18:00",3,"17-11-2015 18:00"));
-	ToDoArray.push(new ToDo("Deadline quiz 2", "extra info" , "23-11-2015 20:00",5,"22-11-2015 12:00"));
+	//Create 2 test ToDo objects
+	//ToDoArray.push(new ToDo("Do homework", "Extrainfo","18-11-2015 18:00",3,"17-11-2015 18:00"));
+	//ToDoArray.push(new ToDo("Deadline quiz 2", "extra info" , "23-11-2015 20:00",5,"22-11-2015 12:00"));
 	
 	
 	/*console.log(ToDoArray[0].toString());
@@ -23,12 +23,14 @@ var main = function () {
 	console.log(ToDo2.getPriority());
 	console.log(ToDo2.getReminderDate());*/
 	
+	$("#TodayList,#7DaysList,#MonthList").hide(); //hide all but the allList at start
+	
 	
 	// Laat alle Today zien
 	$(".TodayButton").on("click","button", function(){
 		
 		$("#TodayList").show();
-		$("#7DaysList , #MonthList").hide();
+		$("#7DaysList,#MonthList,#AllList").hide();
 		console.log(" Today clicked");
 		
 	});
@@ -37,7 +39,7 @@ var main = function () {
 	$(".7DaysButton").on("click","button", function(){
 		
 		$("#7DaysList").show();
-		$("#TodayList , #MonthList").hide();
+		$("#TodayList,#MonthList,#AllList").hide();
 		console.log(" 7Days clicked");
 		
 	});
@@ -46,17 +48,16 @@ var main = function () {
 	$(".MonthButton").last().on("click","button", function(){
 		
 		$("#MonthList").show();
-		$("#TodayList , #7DaysList").hide();
+		$("#TodayList,#7DaysList,#AllList").hide();
 		console.log(" month clicked");
-		
 	});
 	
 	//Laat alles zien
 	$(".EveryButton").last().on("click","button", function(){
 			
-			$("#MonthList , #TodayList , #7DaysList").show();
-			
-			console.log(" month clicked");
+			$("#AllList").show();
+			$("#TodayList,#7DaysList,#MonthList").hide();
+			console.log(" every clicked");
 			
 	});
 	
@@ -131,7 +132,29 @@ var main = function () {
 	});
 	
 	
+function emptyList(){
+	var $nameTemp = $("<li>");
+
+	$("#AllList").empty(); //clear displayed list
+	$("#TodayList").empty();
+	$("#MonthList").empty();
+	$("#7DaysList").empty();
+	
+	var $nameTemp = $("<h2>");
+	$nameTemp.text("Todo's for today:");
+	$("#TodayList").append($nameTemp);
+	$nameTemp.text("Todo's this month:");
+	$("#MonthList").append($nameTemp);
+	$nameTemp.text("Todo's this week:");
+	$("#7DaysList").append($nameTemp);
+	$nameTemp.text("All todo's:");
+	$("#AllList").append($nameTemp);
+	
+}	
+	
 function sortlist(){
+	
+	emptyList();
 	
 	console.log("sorting the following list:");
 	
@@ -145,31 +168,39 @@ function sortlist(){
 	 var today = new Date();
 	 var dd = today.getDate();
 	 var mm = today.getMonth()+1;
-	 var yy = today.getYear();
+	 var yy = today.getFullYear();
+	 
+	 console.log("year: " + yy);
 	
 	//Sort the list by date:
 	for(var i=0;i<ToDoArray.length;i++)
 		{
+			//in the AllList, all items should be displayed
+			var $allTemp = $("<li>");
+			$allTemp.text(ToDoArray[i].toString());
+			$("#AllList").append($allTemp);
 	
-			//var temp = new Array();
-		
-			//werkt nog niet :HIER VERDER
+			
 			
 			var temp = ToDoArray[i].getDueDate().split("-"); 
+			console.log(temp[0]==dd && temp[2]==yy);
+			console.log(temp[0] + " should be equal to: " + dd + " " + temp[2] + " should be equal to: " + yy);
 			
-			if(temp[0]===dd && temp[2]===yy) //if day and year matches add to the todaylist
+			if(temp[0]==dd && temp[2]==yy) //if day and year matches add to the todaylist
 				{
 					var $temp = $("<li>");
 					$temp.text(ToDoArray[i].toString());
 					$("#TodayList").append($temp);
 				}
-			if(temp[0]>dd-3 && temp[0]<dd+4 && temp[2] === yy) //TEMP teststatement needs to be adjusted!!! -> fix: extract weeknumbers
+			if(temp[0]>dd-3 && temp[0]<dd+4 && temp[2] == yy) //TEMP teststatement needs to be adjusted!!! -> fix: extract weeknumbers
 				{
 					var $temp = $("<li>");
 					$temp.text(ToDoArray[i].toString());
 					$("#7DaysList").append($temp);
 				}
-			if(temp[1]===mm && temp[2]===yy)//if month and year matches add to the monthlist
+			console.log("month: " + temp[1] +" equal to: " + mm );
+			
+			if(temp[1]==mm && temp[2]==yy)//if month and year matches add to the monthlist
 				{
 					var $temp = $("<li>");
 					$temp.text(ToDoArray[i].toString());
