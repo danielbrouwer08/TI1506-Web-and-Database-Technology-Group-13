@@ -151,7 +151,7 @@ function sendData(ToDoArray) {
 	
 	$.ajax({
 		type: "POST",
-		url: "/app",
+		url: "/save",
 		data: JSON.stringify(ToDoArray),
 		contentType: "application/json; charset=utf-8",
 		dataType: "json",
