@@ -2,7 +2,7 @@
 	"compilerOptions":{
 		"target": "ES6"
 	},
-	"files": [
-		"watching.js"
+	"files":[
+		"server.js"
 	]
 }
