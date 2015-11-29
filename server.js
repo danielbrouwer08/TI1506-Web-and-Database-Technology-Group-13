@@ -7,6 +7,7 @@ var jsonfile = require("jsonfile");
 var server;
 
 var ToDoArray = new Array();
+var userData;
 
 var port = 8000;
 server = express();
@@ -42,6 +43,19 @@ server.post("/save", function(req,res){
 	});
 });
 
+server.post("/createaccount", function(req,res){
+	console.log("userdata has been posted");
+	res.json({"message" : "You posted to the server"});
+	console.log(req.body);
+	
+	userData = req.body;
+	
+	jsonfile.writeFile("users.json", userData, function(){
+	
+	console.log("Array saved in file on server");
+	});
+});
+
 server.get("/getTodo",function(req,res){
 	jsonfile.readFile("todos.json",function(err,obj){
 		console.log(obj);
@@ -49,9 +63,6 @@ server.get("/getTodo",function(req,res){
 	});
 	
 });
-
-
-
 
 
 // server.get("/greetme",function(req,res){

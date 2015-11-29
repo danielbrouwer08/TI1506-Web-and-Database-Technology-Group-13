@@ -18,6 +18,9 @@ var main = function () {
 
 			alert("Account created succesfully. Please check your email for verification");
 			closeDialog();
+			
+			//send data to server
+			sendUserData(user);
 
 			//console.log(user.toString());
 			//console.log(user.getPassword());
@@ -30,6 +33,13 @@ var main = function () {
 
 
 };
+
+function sendUserData(user) {
+	$.post("/createaccount",user, function(response){
+	console.log("Data send");
+	console.log(response);
+});
+}
 
 function closeDialog()
 {
@@ -51,10 +61,10 @@ function userData(username,password,email){
 	this.email = email;
 
 	//Prototype functions for userData
-	userData.prototype.toString = function(){return "UserData: " + this.username + ", " + this.email};
-	userData.prototype.getUsername = function(){return this.username;};
-	userData.prototype.getPassword = function(){return this.password;};
-	userData.prototype.getEmail = function(){return this.email;};
+	//userData.prototype.toString = function(){return "UserData: " + this.username + ", " + this.email};
+	//userData.prototype.getUsername = function(){return this.username;};
+	//userData.prototype.getPassword = function(){return this.password;};
+	//userData.prototype.getEmail = function(){return this.email;};
 }
 
 
