@@ -1,10 +1,7 @@
-.settings
-.vscode
-.node_modules
-.typings
+.settings/
+.vscode/
+node_modules/
+typings/
+
 .project
-jsconfig.json
-
-
-
 
