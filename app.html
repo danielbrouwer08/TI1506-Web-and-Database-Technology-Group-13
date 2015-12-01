@@ -1,108 +1,145 @@
 <!doctype html>
 <html>
-	<head>
-		<title>Application</title>
-	</head>
 
-	<body>
-		<header>
-			<img src="images/logo.png" alt="Logo">
-			<nav>
-				<a href="splash">HOME</a>|
-				<a href="#">LOGIN</a>|
-				<a href="app">APP</a>|
-				<a href="#">REGISTER</a>|
-				<a href="#">CONTACT</a>|
-				<a href="#">HELP</a>
-			</nav>
-		</header>
-		
-		<main>
-			
-			<section class ="showTodo">
-			<h1>Show todo:</h1>
-			
-			<section class="TodayButton">
-				<button>Today</button>
+<head>
+	<title>Application</title>
+	<link rel="stylesheet" type="text/css" href="app.css">
+	<link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet' type='text/css'>
+</head>
+
+<body>
+	<header>
+		<img src="images/logo.png" alt="Logo">
+		<nav>
+			<a href="splash">HOME</a>|
+			<a href="#">LOGIN</a>|
+			<a href="app">APP</a>|
+			<a href="#">REGISTER</a>|
+			<a href="#">CONTACT</a>|
+			<a href="#">HELP</a>
+		</nav>
+	</header>
+
+	<main>
+
+		<section class="showbuttons">
+
+			<section class="showTodo">
+				<h1>Show todo:</h1>
+
+				<section class="TodayButton">
+					<button>Today</button>
+				</section>
+
+				<section class="7DaysButton">
+					<button>7Days</button>
+				</section>
+
+				<section class="MonthButton">
+					<button>Month</button>
+				</section>
+
+				<section class="EveryButton">
+					<button>Every thing</button>
+				</section>
+
 			</section>
-			
-			<section class="7DaysButton">
-				<button>7Days</button>
-			</section>
-			
-			<section class="MonthButton">
-						<button>Month</button>
-			</section>	
-			
-			<section class="EveryButton">
-				<button>Every thing</button>
-			</section>		
-			
-			</section>
-			
-			
-			
-			<img src="images/Calender.png" alt="Calender">
-			
-			<section class="AddTask">
-				<h1>Add Task</h1>
-					<p id = "TaskDescIn">Task description <input type="text" value = "Subject"/><p>	
-					<p id = "ExtraInfoIn"> <input type = "text" value = "Extra info"/><p>
-					<p id = "DateIn"> Date <input type = "text" value = "d-m-year"/><p>
-					
-					Priority <img src="images/Priority_colors.png" alt="Priority colors"> <br>
-					
-					<section class = "Groen">
-					<button id = "Groen"> Groen</button>
-					</section>
-					
-					<section class = "Geel">
-					<button id = "Geel"> Geel</button>
-					</section>
-					
-					<section class = "Rood">
-					<button id="Rood">Rood</button>
-					</section>
-					
-					<p id = "ReminderIn">Reminder date <input type = "text" value = "d-m-year"/></p>
-					
-					<section class="AddButton">
-						<button>Add</button>
-					</section>
-			</section>
-			
-			
-			
-			<section class="TodoList">
+
+		</section>
+
+		<section class="AddTask">
+			<h1>Add Task</h1>
+			<p id="TaskDescIn">Task description
+				<input type="text" value="Subject" />
+				<p>
+					<p id="ExtraInfoIn">
+						<input type="text" value="Extra info" />
+						<p>
+							<p id="DateIn"> Date
+								<input type="text" value="d-m-year" />
+								<p>
+
+									Priority
+									<!--<img src="images/Priority_colors.png" alt="Priority colors">-->
+
+									<section class="priorityButtons">
+										<section class="Groen">
+											<button id="Groen">LOW</button>
+										</section>
+
+										<section class="Geel">
+											<button id="Geel">MEDIUM</button>
+										</section>
+
+										<section class="Rood">
+											<button id="Rood">HIGH</button>
+										</section>
+									</section>
+
+									<p id="ReminderIn">Reminder date
+										<input type="text" value="d-m-year" />
+									</p>
+
+									<section class="AddButton">
+										<button>Add</button>
+									</section>
+		</section>
+
+		<img src="images/Calender.png" alt="Calender">
+
+		<section class="TodoList">
 			<h1>ToDo:</h1>
 			<div>
 				<ul ID="TodayList">
 
 				</ul>
-				
-				<ul id ="7DaysList" >
-					
+
+				<ul id="WeekList">
+
 				</ul>
-				
-				<ul id= "MonthList">
-					
+
+				<ul id="MonthList">
+
 				</ul>
-				
-				<ul id= "AllList">
-					
+
+				<ul id="AllList">
+
 				</ul>
 			</div>
-			
+
+		</section>
+		
+		<section class="legend">
+			Legend:
+			<section class="legendForestGreen">
+				<button id="legendForestGreen">LOW PRIORITY</button>
+			</section>
+			<section class="legendGoldenRod">
+				<button id="legendGoldenRod">MEDIUM PRIORITY</button>
+			</section>
+			<section class="legendFireBrick">
+				<button id="legendFireBrick">HIGH PRIORITY</button>
+			</section>
+			<section class="legendOverdue">
+				<button id="legendOverdue">ToDo is ovedue</button>
+			</section>
+			<section class="legendDone">
+				<button id="legendDone">Todo is done</button>
+			</section>
+			<section class="legendNoPriority">
+				<button id="legendNoPriority">ToDo has no (valid) priority</button>
 			</section>
 			
-		</main>
-		
-		<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-		<script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
-		<script src="app.js"></script>
-		
-		
-	</body>
+		</section>
+
+	</main>
+
+	<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+	<script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+	<script src="app.js"></script>
+
+
+</body>
 
 
 

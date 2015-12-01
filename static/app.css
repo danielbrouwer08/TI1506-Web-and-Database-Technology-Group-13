@@ -1,0 +1,182 @@
+body{
+	font-family: 'Montserrat', sans-serif;
+	text-align: center;
+	width: 800px;
+	margin: 0 auto;
+	background-image: url("images/linesLight.png");
+}	
+
+nav{
+	border: 5px solid black;
+}
+
+/*Showbuttons menu styling:*/
+.showbuttons{
+	width: 125px;
+    height: 200px;
+	border: 5px solid black;
+	border-radius: 10px;
+	float: left;
+	position:relative;
+	top: 10px;
+}
+
+.AddTask{
+	width: 500px;
+    height: 450px;
+	border: 5px solid black;
+	border-radius: 10px;
+	float: right;
+	position:relative;
+	top: 10px;
+}
+
+.TodoList{
+	border: 5px solid black;
+	border-radius: 10px;
+	position:relative;
+	top: 10px;
+}
+
+.priorityButtons{
+	margin: auto;
+	width: 190px;
+	height: 30px;
+}
+
+/*Default button appearance*/
+
+button{
+	color: white;
+	background-color: grey;
+}
+
+button:hover{
+	color: grey;
+	background-color: white;
+}
+
+button:active{
+	color: grey;
+	background-color: white;
+	border:1px dashed;
+	border-color: black;
+}
+
+#Groen, #Geel, #Rood {color:black;margin:auto; float:left; display:inline;}
+
+button#Groen {
+     background-color: forestgreen;
+}
+
+button#Geel{
+	background-color: goldenrod;
+}
+
+button#Rood{
+	background-color: firebrick;
+}
+
+button#Groen:hover {
+     background-color: lightgreen;
+}
+
+button#Geel:hover {
+     background-color: lightcyan;
+}
+
+button#Rood:hover {
+     background-color: lightcoral;
+}
+
+
+button#Groen.down {
+     background-color: lightgreen;
+}
+
+button#Geel.down {
+     background-color: lightcyan;
+}
+
+button#Rood.down {
+     background-color: lightcoral;
+}
+
+#AllList, #TodayList, #WeekList, #MonthList{
+	position: relative;
+	right: 20px;
+}
+
+
+/*Used for unspecified priorities:*/
+.TodoList li {
+	height: 45px;
+	background-color: grey;
+	border: 5px solid black;
+	border-radius: 10px;	
+}
+
+.TodoList li[priority~="1"] {
+	background-color: forestgreen;
+	border: 5px solid black;
+	border-radius: 10px;
+}
+
+.TodoList li[priority~="2"] {
+	background-color: goldenrod;
+	border: 5px solid black ;
+	border-radius: 10px;	
+}
+
+.TodoList li[priority~="3"] {
+	background-color: firebrick;
+	border: 5px solid black ;
+	border-radius: 10px;	
+}
+
+.TodoList li[overDue~="true"] {
+	color: white;
+	background-color: black;
+	border: 5px solid black ;
+	border-radius: 10px;	
+}
+
+.TodoList li[done~="true"] {
+	background-color: lawngreen;
+	border: 5px solid black ;
+	border-radius: 10px;		
+}
+
+.TodoList button {margin:auto; float:right; display:inline;}
+
+.legend{
+	position: fixed;
+    bottom: 0;
+    right: 0;
+	border: 5px solid black;
+	border-radius: 10px;
+}
+
+button#legendForestGreen{
+	background-color: forestgreen;
+}
+
+button#legendGoldenRod{
+	background-color: goldenrod;
+}
+
+button#legendFireBrick{
+	background-color: firebrick;
+}
+
+button#legendOverdue{
+	background-color: black;
+}
+
+button#legendDone{
+	background-color: lawngreen;
+}
+
+button#llegendNoPriority{
+	background-color: grey;
+}
