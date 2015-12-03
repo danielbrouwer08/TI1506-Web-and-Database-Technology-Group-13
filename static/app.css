@@ -6,8 +6,36 @@ body{
 	background-image: url("images/linesLight.png");
 }	
 
-nav{
+nav a{
+	color: black;
 	border: 5px solid black;
+	padding: 3px;
+	font-size: 1.25em;
+}
+
+nav a:link{
+	text-decoration: none;
+	color: black;
+	
+}
+nav a:hover{
+	font-weight: 900;
+	
+}
+
+nav a:visited{
+	color: red;
+}
+
+[href = "splash"] {
+	border-bottom-left-radius: 10px;
+	border-top-left-radius: 10px;
+}
+
+#help {
+	border-bottom-right-radius: 10px;
+	border-top-right-radius: 10px;
+	
 }
 
 /*Showbuttons menu styling:*/
