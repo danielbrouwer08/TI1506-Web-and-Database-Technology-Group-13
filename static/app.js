@@ -21,7 +21,7 @@ var main = function (ToDoObjects) {
 
 		$("#TodayList").show();
 		$("#WeekList,#MonthList,#AllList").hide();
-		console.log(" Today clicked");
+		//console.log(" Today clicked");
 
 	});
 
@@ -30,7 +30,7 @@ var main = function (ToDoObjects) {
 
 		$("#WeekList").show();
 		$("#TodayList,#MonthList,#AllList").hide();
-		console.log(" 7Days clicked");
+		//console.log(" 7Days clicked");
 
 	});
 
@@ -39,7 +39,7 @@ var main = function (ToDoObjects) {
 
 		$("#MonthList").show();
 		$("#TodayList,#WeekList,#AllList").hide();
-		console.log(" month clicked");
+		//console.log(" month clicked");
 	});
 
 	//Laat alles zien
@@ -47,7 +47,7 @@ var main = function (ToDoObjects) {
 
 		$("#AllList").show();
 		$("#TodayList,#WeekList,#MonthList").hide();
-		console.log(" every clicked");
+		//console.log(" every clicked");
 
 	});
 
@@ -120,22 +120,37 @@ var main = function (ToDoObjects) {
 
 	$(".AddButton").on("click", "button", function () {
 
-		console.log(" Add geklikt");
+		//console.log(" Add geklikt");
 		var desc = $("#TaskDescIn input").val();
 		var ExInfo = $("#ExtraInfoIn input").val();
 
 		var da = $("#DateIn input").val();
 		var remD = $("#ReminderIn input").val();
-
-
-		ToDoArray.push(new ToDo(desc, ExInfo, da, prio, remD));
-
-		sendData(ToDoArray); //send new data to the server
-
-		for (var i = 0; i < ToDoArray.length; i++) {
-
-			console.log(tostring(ToDoArray[i]));
+		
+		var todoitem;
+		
+		lastid++;
+		
+		if(editId==false)
+		{
+			todoitem = new ToDo(desc, ExInfo, da, prio, remD, lastid);
+			ToDoArray.push(todoitem);
 		}
+		else
+		{
+			todoitem = new ToDo(desc, ExInfo, da, prio, remD, tempid);
+			ToDoArray.push(todoitem);
+			editId=false;	
+		}
+		
+		//sendData(ToDoArray); //send new data to the server
+		
+		sendTodo(todoitem);
+
+		//for (var i = 0; i < ToDoArray.length; i++) {
+//
+		//	console.log(tostring(ToDoArray[i]));
+		//}
 
 		sortlist(ToDoArray); //sort list to week, day month every time todo gets added.
 		
@@ -162,6 +177,14 @@ var main = function (ToDoObjects) {
 
 // print
 var tostring = function (Object) { return "ToDo: " + Object.subject + ", " + Object.extraInfo + ", " + Object.dueDate + ", " + Object.priority + ", " + Object.reminderDate };
+
+function sendTodo(todoitem){
+	$.post("/saveTodo", todoitem, function (response) {
+		console.log("Todo send");
+		//console.log(response);
+	});
+}
+
 
 function sendData(ToDoArray) {
 
@@ -196,7 +219,7 @@ function sortlist(ToDoArray) {
 
 	emptyList();
 
-	console.log("sorting the following list:");
+	//console.log("sorting the following list:");
 
 	ToDoArray.sort(function(a, b) {
 		var temp1 = a.dueDate.split("-")
@@ -219,10 +242,10 @@ function sortlist(ToDoArray) {
 	for (var i = 0; i < ToDoArray.length; i++) {
 	var temp = ToDoArray[i].dueDate.split("-");
 		
-	console.log(toString(ToDoArray[i]));
+	//console.log(toString(ToDoArray[i]));
 	}
 
-	console.log("year: " + yy);
+	//console.log("year: " + yy);
 
 	//Sort the list by date:
 	for (var i = 0; i < ToDoArray.length; i++) {
@@ -231,8 +254,8 @@ function sortlist(ToDoArray) {
 		//$allTemp.text(tostring(ToDoArray[i]));
 		
 		var temp = ToDoArray[i].dueDate.split("-");
-		console.log(temp[0] == dd && temp[2] == yy);
-		console.log(temp[0] + " should be equal to: " + dd + " " + temp[2] + " should be equal to: " + yy);
+		//console.log(temp[0] == dd && temp[2] == yy);
+		//console.log(temp[0] + " should be equal to: " + dd + " " + temp[2] + " should be equal to: " + yy);
 		
 		//mark overdue todo's
 		if (temp[2] < yy) {
@@ -266,7 +289,7 @@ function sortlist(ToDoArray) {
 			
 			$("#WeekList").append(temp);
 		}
-		console.log("month: " + temp[1] + " equal to: " + mm);
+		//console.log("month: " + temp[1] + " equal to: " + mm);
 
 		if (temp[1] == mm && temp[2] == yy)//if month and year matches add to the monthlist
 		{
@@ -282,7 +305,7 @@ function sortlist(ToDoArray) {
 		var tempRemove = ".todoNO" + i;
 		$(tempRemove).on("click", "button", function () {
 			var clickedBtnID = $(this).attr('id').replace("todoNO", ""); //get the buttonID clicked so the correct todo can be deleted
-			console.log('you clicked on button #' + clickedBtnID);
+			//console.log('you clicked on button #' + clickedBtnID);
 			ToDoArray.splice(clickedBtnID, 1); //remove todo from array
 			sortlist(ToDoArray); //sort the list again
 			sendData(ToDoArray); //send new data to the server
@@ -292,7 +315,7 @@ function sortlist(ToDoArray) {
 		var tempDone = ".todoDoneNO" + i;
 		$(tempDone).on("click", "button", function () {
 			var clickedBtnID = $(this).attr('id').replace("todoDoneNO", ""); //get the buttonID clicked
-			console.log('you clicked on donebutton #' + clickedBtnID);
+			//console.log('you clicked on donebutton #' + clickedBtnID);
 			//ToDoArray.splice(clickedBtnID, 1); //remove todo from array
 			ToDoArray[clickedBtnID].done = true; //set done field true
 			sortlist(ToDoArray); //sort the list again
@@ -303,7 +326,7 @@ function sortlist(ToDoArray) {
 		var tempEdit = ".todoEditNO" + i;
 		$(tempEdit).on("click", "button", function () {
 			var clickedBtnID = $(this).attr('id').replace("todoEditNO", ""); //get the buttonID clicked
-			console.log('you clicked on editbutton #' + clickedBtnID);
+			//console.log('you clicked on editbutton #' + clickedBtnID);
 			//ToDoArray.splice(clickedBtnID, 1); //remove todo from array
 			
 			var desc = $("#TaskDescIn input").val(ToDoArray[clickedBtnID].subject);
@@ -312,7 +335,10 @@ function sortlist(ToDoArray) {
 			var da = $("#DateIn input").val(ToDoArray[clickedBtnID].dueDate);
 			var remD = $("#ReminderIn input").val(ToDoArray[clickedBtnID].reminderDate);
 			
-			console.log(ToDoArray[clickedBtnID].priority);
+			tempid = ToDoArray[clickedBtnID].id;
+			editId=true;
+			
+			//console.log(ToDoArray[clickedBtnID].priority);
 			if(ToDoArray[clickedBtnID].priority=="1")
 			{
 				$("#Rood").removeClass("down");
@@ -341,8 +367,14 @@ function sortlist(ToDoArray) {
 };
 
 $(document).ready(function () {
+	$.getJSON("/lastid", function (res) {
+		lastid = res;
+		console.log("lastid: " + res);	
+	});
+	
 	$.getJSON("/getTodo", function (ToDoObjects) {
 		console.log(ToDoObjects);
+
 		main(ToDoObjects);
 	});
 
@@ -350,7 +382,7 @@ $(document).ready(function () {
 
 
 //Constructor for ToDo
-function ToDo(subject, extraInfo, dueDate, priority, reminderDate) {
+function ToDo(subject, extraInfo, dueDate, priority, reminderDate,id) {
 	this.subject = subject;
 	this.extraInfo = extraInfo;
 	this.dueDate = dueDate;
@@ -358,12 +390,11 @@ function ToDo(subject, extraInfo, dueDate, priority, reminderDate) {
 	this.reminderDate = reminderDate;
 	this.overDue = false;
 	this.done = false;
-
-	//Prototype functions for ToDo
-	//ToDo.prototype.toString = function () { return "ToDo: " + this.subject + ", " + this.extraInfo + ", " + this.dueDate + ", " + this.priority + ", " + this.reminderDate };
-	
+	this.id = id;
 }
 
-
+var lastid;
+var editId=false;
+var tempid;
 
 
