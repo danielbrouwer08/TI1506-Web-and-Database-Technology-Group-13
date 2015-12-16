@@ -13,6 +13,21 @@ var port = 8000;
 server = express();
 http.createServer(server).listen(port);
 
+var mysql = require('mysql')
+var connection = mysql.createConnection({
+	host : 'localhost',
+	user: 'root',
+	password : 'webdata',
+	database : 'todo'
+})
+
+connection.query('Select * From user', function(error,results,fiels){
+	console.log(error);
+	console.log(results);
+	//console.log(fields);
+});
+
+
 server.use(express.static('static'));
 
 server.use(bodyparser.urlencoded({ extended: true}));
@@ -63,6 +78,10 @@ server.get("/getTodo",function(req,res){
 	});
 	
 });
+
+
+
+
 
 
 // server.get("/greetme",function(req,res){
