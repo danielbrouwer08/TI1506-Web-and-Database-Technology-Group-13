@@ -129,15 +129,16 @@ var main = function (ToDoObjects) {
 		
 		var todoitem;
 		
-		lastid++;
-		
 		if(editId==false)
 		{
+			lastid++;
+			console.log("lastid: " + lastid);
 			todoitem = new ToDo(desc, ExInfo, da, prio, remD, lastid);
 			ToDoArray.push(todoitem);
 		}
 		else
 		{
+			console.log("tempid: " + tempid);
 			todoitem = new ToDo(desc, ExInfo, da, prio, remD, tempid);
 			ToDoArray.push(todoitem);
 			editId=false;	
@@ -181,6 +182,13 @@ var tostring = function (Object) { return "ToDo: " + Object.subject + ", " + Obj
 function sendTodo(todoitem){
 	$.post("/saveTodo", todoitem, function (response) {
 		console.log("Todo send");
+		//console.log(response);
+	});
+}
+
+function removeTodo(todoitem){
+	$.post("/deleteTodo", todoitem, function (response) {
+		console.log("Todo to remove send");
 		//console.log(response);
 	});
 }
@@ -259,11 +267,11 @@ function sortlist(ToDoArray) {
 		
 		//mark overdue todo's
 		if (temp[2] < yy) {
-			ToDoArray[i].overDue = true;
+			ToDoArray[i].overDue = 1; //(true)
 		} else if (temp[1] < mm && temp[2] == yy) {
-			ToDoArray[i].overDue = true;
+			ToDoArray[i].overDue = 1;
 		} else if (temp[0] < dd && temp[1] == mm && temp[2] == yy) {
-			ToDoArray[i].overDue = true;
+			ToDoArray[i].overDue = 1;
 		}
 	
 		
@@ -306,9 +314,10 @@ function sortlist(ToDoArray) {
 		$(tempRemove).on("click", "button", function () {
 			var clickedBtnID = $(this).attr('id').replace("todoNO", ""); //get the buttonID clicked so the correct todo can be deleted
 			//console.log('you clicked on button #' + clickedBtnID);
+			removeTodo(ToDoArray[clickedBtnID]);
 			ToDoArray.splice(clickedBtnID, 1); //remove todo from array
 			sortlist(ToDoArray); //sort the list again
-			sendData(ToDoArray); //send new data to the server
+			//sendData(ToDoArray); //send new data to the server
 		});
 		
 		//dynamically add the onclick event functions for the done buttons
@@ -317,9 +326,10 @@ function sortlist(ToDoArray) {
 			var clickedBtnID = $(this).attr('id').replace("todoDoneNO", ""); //get the buttonID clicked
 			//console.log('you clicked on donebutton #' + clickedBtnID);
 			//ToDoArray.splice(clickedBtnID, 1); //remove todo from array
-			ToDoArray[clickedBtnID].done = true; //set done field true
+			ToDoArray[clickedBtnID].done = 1; //set done field true
+			sendTodo(ToDoArray[clickedBtnID]);
 			sortlist(ToDoArray); //sort the list again
-			sendData(ToDoArray); //send new data to the server
+			//sendData(ToDoArray); //send new data to the server
 		});
 		
 		//dynamically add the onclick event functions for the done buttons
@@ -335,7 +345,13 @@ function sortlist(ToDoArray) {
 			var da = $("#DateIn input").val(ToDoArray[clickedBtnID].dueDate);
 			var remD = $("#ReminderIn input").val(ToDoArray[clickedBtnID].reminderDate);
 			
+			console.log("hier komen testdingen:");
+			console.log(ToDoArray[clickedBtnID].subject);
+			console.log(clickedBtnID);
+			console.log(ToDoArray.length);
+			
 			tempid = ToDoArray[clickedBtnID].id;
+			console.log(tempid);
 			editId=true;
 			
 			//console.log(ToDoArray[clickedBtnID].priority);
@@ -388,8 +404,8 @@ function ToDo(subject, extraInfo, dueDate, priority, reminderDate,id) {
 	this.dueDate = dueDate;
 	this.priority = priority;
 	this.reminderDate = reminderDate;
-	this.overDue = false;
-	this.done = false;
+	this.overDue = 0;
+	this.done = 0;
 	this.id = id;
 }
 

@@ -162,14 +162,14 @@ button#Rood.down {
 	border-radius: 10px;	
 }
 
-.TodoList li[overDue~="true"] {
+.TodoList li[overDue~="1"] {
 	color: white;
 	background-color: black;
 	border: 5px solid black ;
 	border-radius: 10px;	
 }
 
-.TodoList li[done~="true"] {
+.TodoList li[done~="1"] {
 	background-color: lawngreen;
 	border: 5px solid black ;
 	border-radius: 10px;		
