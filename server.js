@@ -8,6 +8,7 @@ var jsonfile = require("jsonfile");
 // Self made modules
 var todoAction = require("ToDoActions.js");
 var pages = require("pages.js");
+var query = require("querys.js");
 //
 
 var server;
@@ -21,14 +22,6 @@ var port = 8000;
 server = express();
 http.createServer(server).listen(port);
 
-/*!!!!!!!!!!!!
-var mysql = require('mysql')
-var connection = mysql.createConnection({
-	host: 'localhost',
-	user: 'root',
-	password: 'webdata',
-	database: 'todo'
-})*/
 
 var connection = todoAction.connection;
 
@@ -38,38 +31,13 @@ server.use(bodyparser.json());
 
 
 pages.app(server);
-/*!!!!!!!!!
-//Send the app html to the client
-server.get("/app", function (req, res) {
-	res.sendfile("app.html");
-});*/
 
 pages.splash(server);
-/*!!!!!!!!!!!!
-//Send the splash html to the client
-server.get("/splash", function (req, res) {
-	res.sendfile("splash.html");
-});*/
 
 
 pages.dashboard(server);
-/*
-//Send the dashboard html to the client
-server.get("/dashboard", function (req, res) {
-	res.sendfile("dashboard.html");
-});*/
-
 
 todoAction.save(server);
-/*
-//Save all Todo's from client in a JSON file (NOT USED ANYMORE)
-server.post("/save", function (req, res) {
-	console.log("data has been posted");
-	res.json({ "message": "You posted to the server" });
-	console.log(req.body.list);
-	ToDoArray = (req.body.list);
-});*/
-
 
 //Client sends ToDo to server that has to be saved/altered in the database
 server.post("/saveTodo", function (req, res) {
@@ -135,16 +103,6 @@ server.post("/createaccount", function (req, res) {
 });
 
 todoAction.lastId(server);
-/*!!!!!!!!!!
-//Send the last ID for a todoitem in the database
-server.get("/lastid", function (req, res) {
-
-	connection.query('Select max(todoitem.id) as maxid From todoitem WHERE todoitem.DueDate is not null and todoitem.CompletionDate is not null', function (error, results, fiels) {
-		console.log("Sending following lastid to the client: " + results[0].maxid);
-		res.json(results[0].maxid);
-	});
-});*/
-
 
 //Send all todo's from the database to the client
 server.get("/getTodo", function (req, res) {
@@ -171,17 +129,6 @@ server.get("/getTodo", function (req, res) {
 	
 });
 
-/*
-//Returns string representation of date object that client understands
-function dateToString(date){
-	
-	var dd = date.getDate();
-	var mm = date.getMonth() + 1;
-	var yy = date.getFullYear();
-
-	return (dd + "-" + mm + "-" + yy);
-}*/
-
 
 //Constructor for ToDo object
 function ToDo(subject, extraInfo, dueDate, priority, reminderDate, id) {
@@ -198,146 +145,19 @@ function ToDo(subject, extraInfo, dueDate, priority, reminderDate, id) {
 
 
 //SQL Queries
-//Query 0:
-server.get("/todosAmount", function (req, res) {
-	var query = "Select Count(*) From todo.todoitem";
-	connection.query(query, function (error, results, fiels) {
-		console.log(error);
-		console.log(results);
-		res.json(results);
-		//
-	});
-});
 
-//Query 1:
-server.get("/getTodoList", function (req, res) {
-	var query = "SELECT TL.* FROM todo.ToDoList as TL, todo.User as U WHERE TL.Owner = U.id AND U.id =" + 1;
-	connection.query(query, function (error, results, fiels) {
-		console.log(error);
-		console.log(results);
-		res.json(results);
-		//
-	});
-});
+query.todosAmount(server,connection); 
+query.getTodoList(server,connection);
+query.getTodoItems(server,connection); 
+query.get5TodoItems(server,connection);
+query.getTodoItemsFilterd(server,connection);
+query.getSubItems(server,connection);
+query.getTags(server,connection);
+query.todoListByTag(server,connection);
+query.totalPendingAndCompleted(server,connection);
+query.todosCompletedEachWeek(server,connection);
+query.tagsFrequency(server,connection);
+query.averageCompletionTime(server,connection);
+query.lowerThenAverageCompletionTime(server,connection);
 
-//Query 2
-server.get("/getTodoItems", function (req, res) {
-	var query = "SELECT I.* FROM todo.ToDoList AS L, todo.ToDoItem AS I WHERE L.Id = I.ToDoListID";
-	connection.query(query, function (error, results, fiels) {
-		console.log(error);
-		console.log(results);
-		res.json(results);
-		//
-	});
-});
-
-//Query 3
-server.get("/get5TodoItems", function (req, res) {
-	var query = "SELECT I.* FROM todo.ToDoList  AS L, todo.ToDoItem AS I WHERE L.Id  = I.ToDoListID LIMIT 5";
-	connection.query(query, function (error, results, fiels) {
-		console.log(error);
-		console.log(results);
-		res.json(results);
-		//
-	});
-});
-
-//Query 4
-server.get("/getTodoItemsFilterd", function (req, res) {
-	var query = "SELECT I.* FROM todo.ToDoList AS L, todo.ToDoItem AS I WHERE L.Id  = I.ToDoListID AND I.CreationDate < '2014-11-22%' AND I.Priority = 1 AND I.Completed = 0 ORDER BY I.CreationDate";
-	connection.query(query, function (error, results, fiels) {
-		console.log(error);
-		console.log(results);
-		res.json(results);
-		//
-	});
-});
-
-//Query 5
-server.get("/getSubItems", function (req, res) {
-	var query = "SELECT I.* FROM todo.ToDoItem AS I WHERE I.ParentToDo = 1";
-	connection.query(query, function (error, results, fiels) {
-		console.log(error);
-		console.log(results);
-		res.json(results);
-		//
-	});
-});
-
-//Query 6
-server.get("/getTags", function (req, res) {
-	var query = "SELECT IT.* FROM todo.ItemTag AS IT WHERE IT.ToDoId = 1";
-	connection.query(query, function (error, results, fiels) {
-		console.log(error);
-		console.log(results);
-		res.json(results);
-		//
-	});
-});
-
-//Query 7:
-server.get("/todoListByTag", function (req, res) {
-	var query = "SELECT distinct TDL.*, TagId FROM todo.ToDoList AS TDL join todo.ToDoItem AS TDI ON (TDL.id = TDI.ToDoListID) JOIN todo.ItemTag AS IT ON (TDI.id = IT.ToDoID) WHERE IT.TagId =" + 3;
-	connection.query(query, function (error, results, fiels) {
-		console.log(error);
-		console.log(results);
-		res.json(results);
-		//
-	});
-});
-
-//Query 8
-server.get("/totalPendingAndCompleted", function (req, res) {
-	var query = "SELECT IT.TagId  , SUM( CASE WHEN I.Completed  =  1 then 1 else 0 end) AS Completed , SUM( CASE WHEN I.Completed = 0 then 1 else 0 end) AS Pending FROM todo.ItemTag AS IT inner join todo.ToDoItem AS I on IT.ToDoId = I.Id GROUP BY IT.TagId";
-	connection.query(query, function (error, results, fiels) {
-		console.log(error);
-		console.log(results);
-		res.json(results);
-		//
-	});
-});
-
-//Query 9:
-server.get("/todosCompletedEachWeek", function (req, res) {
-	var query = "SELECT Count(TDI.Completed) AS CompletedEachWeek FROM todo.ToDoItem as TDI WHERE YEAR(TDI.DueDate) = 2014 #YEAR(CURDATE()) GROUP BY WEEK(TDI.DueDate)";
-	connection.query(query, function (error, results, fiels) {
-		console.log(error);
-		console.log(results);
-		res.json(results);
-		//
-	});
-});
-
-//Query 11:
-server.get("/tagsFrequency", function (req, res) {
-	var query = "SELECT TDL.*, COUNT(IT.tagID) FROM todo.ToDoList AS TDL join todo.ToDoItem AS TDI ON (TDL.id = TDI.ToDoListID) JOIN todo.ItemTag AS IT ON (TDI.id = IT.ToDoID) GROUP BY TDL.id;";
-	connection.query(query, function (error, results, fiels) {
-		console.log(error);
-		console.log(results);
-		res.json(results);
-		//
-	});
-});
-
-//Query 12
-server.get("/averageCompletionTime", function (req, res) {
-	var query = "SELECT AVG(TO_DAYS(TDI.CompletionDate)-TO_DAYS(TDI.CreationDate)) AS CompletionTime FROM todo.todoitem as TDI join todo.todolist as TDL on (TDL.id = TDI.ToDoListID) WHERE TDL.id=1 AND TDI.completiondate IS NOT NULL";
-	connection.query(query, function (error, results, fiels) {
-		console.log(error);
-		console.log(results);
-		res.json(results);
-		//
-	});
-});
-
-//Query 13
-server.get("/lowerThenAverageCompletionTime", function (req, res) {
-	var query = "SELECT TDI.* FROM todo.todoitem as TDI join todo.todolist as TDL on (TDL.id = TDI.ToDoListID) WHERE TDI.completiondate IS NOT NULL GROUP BY ToDoListID HAVING (TO_DAYS(TDI.CompletionDate)-TO_DAYS(TDI.CreationDate))<=(AVG(TO_DAYS(TDI.CompletionDate)-TO_DAYS(TDI.CreationDate)))";
-	connection.query(query, function (error, results, fiels) {
-		console.log(error);
-		console.log(results);
-		res.json(results);
-		//
-	});
-});
 
