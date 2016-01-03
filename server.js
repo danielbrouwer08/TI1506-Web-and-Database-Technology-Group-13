@@ -133,10 +133,11 @@ server.get("/getTodo", function (req, res) {
 			//Add it to the ToDoArray
 			ToDoArray.push(temp);
 		}
-
+	
+		//Send the whole ToDoArray to the client
+		res.json(ToDoArray);
 	});
-	//Send the whole ToDoArray to the client
-	res.json(ToDoArray);
+	
 });
 
 //Returns string representation of date object that client understands
