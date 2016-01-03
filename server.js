@@ -201,7 +201,7 @@ server.get("/get5TodoItems", function (req, res) {
 
 //Query 4
 server.get("/getTodoItemsFilterd", function (req, res) {
-	var query = "SELECT I.* FROM todo.ToDoList AS L, todo.ToDoItem AS I WHERE L.Id  = I.ToDoListID AND I.CreationDate < “2014-11-25%” AND I.Priority = 1 AND I.Completed = 0 ORDER BY I.CreationDate ";
+	var query = "SELECT I.* FROM todo.ToDoList AS L, todo.ToDoItem AS I WHERE L.Id  = I.ToDoListID AND I.CreationDate < '2014-11-22%' AND I.Priority = 1 AND I.Completed = 0 ORDER BY I.CreationDate";
 	connection.query(query, function (error, results, fiels) {
 		console.log(error);
 		console.log(results);
@@ -245,7 +245,7 @@ server.get("/todoListByTag", function (req, res) {
 
 //Query 8
 server.get("/totalPendingAndCompleted", function (req, res) {
-	var query = "SELECT IT.TagId  , SUM( CASE WHEN I.Completed  =  1 then 1 else 0 and) AS Completed , SUM( CASE WHEN I.Completed = 0 then 1 else 0 end) AS Pending FROM todo.ItemTag AS TI inner join todo.ToDoItem AS I on IT.ToDoId = I.Id GROUP BY IT.TagId";
+	var query = "SELECT IT.TagId  , SUM( CASE WHEN I.Completed  =  1 then 1 else 0 end) AS Completed , SUM( CASE WHEN I.Completed = 0 then 1 else 0 end) AS Pending FROM todo.ItemTag AS IT inner join todo.ToDoItem AS I on IT.ToDoId = I.Id GROUP BY IT.TagId";
 	connection.query(query, function (error, results, fiels) {
 		console.log(error);
 		console.log(results);
@@ -276,4 +276,25 @@ server.get("/tagsFrequency", function (req, res) {
 	});
 });
 
+//Query 12
+server.get("/averageCompletionTime", function (req, res) {
+	var query = "SELECT AVG(TO_DAYS(TDI.CompletionDate)-TO_DAYS(TDI.CreationDate)) AS CompletionTime FROM todo.todoitem as TDI join todo.todolist as TDL on (TDL.id = TDI.ToDoListID) WHERE TDL.id=1 AND TDI.completiondate IS NOT NULL";
+	connection.query(query, function (error, results, fiels) {
+		console.log(error);
+		console.log(results);
+		res.json(results);
+		//
+	});
+});
+
+//Query 13
+server.get("/lowerThenAverageCompletionTime", function (req, res) {
+	var query = "SELECT TDI.* FROM todo.todoitem as TDI join todo.todolist as TDL on (TDL.id = TDI.ToDoListID) WHERE TDI.completiondate IS NOT NULL GROUP BY ToDoListID HAVING (TO_DAYS(TDI.CompletionDate)-TO_DAYS(TDI.CreationDate))<=(AVG(TO_DAYS(TDI.CompletionDate)-TO_DAYS(TDI.CreationDate)))";
+	connection.query(query, function (error, results, fiels) {
+		console.log(error);
+		console.log(results);
+		res.json(results);
+		//
+	});
+});
 
