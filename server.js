@@ -1,4 +1,5 @@
 "use strict"
+var ejs = require("ejs")
 var express = require("express");
 var url = require("url");
 var http = require("http");
@@ -22,12 +23,16 @@ var port = 8000;
 server = express();
 http.createServer(server).listen(port);
 
-
 var connection = todoAction.connection;
 
 server.use(express.static('static'));
 server.use(bodyparser.urlencoded({ extended: true }));
 server.use(bodyparser.json());
+
+
+//locate views for ejs
+server.set('views', __dirname + '/views');
+server.set('view engine', 'ejs');
 
 
 pages.app(server);
@@ -146,18 +151,18 @@ function ToDo(subject, extraInfo, dueDate, priority, reminderDate, id) {
 
 //SQL Queries
 
-query.todosAmount(server,connection); 
-query.getTodoList(server,connection);
-query.getTodoItems(server,connection); 
-query.get5TodoItems(server,connection);
-query.getTodoItemsFilterd(server,connection);
-query.getSubItems(server,connection);
-query.getTags(server,connection);
-query.todoListByTag(server,connection);
-query.totalPendingAndCompleted(server,connection);
-query.todosCompletedEachWeek(server,connection);
-query.tagsFrequency(server,connection);
-query.averageCompletionTime(server,connection);
-query.lowerThenAverageCompletionTime(server,connection);
+query.todosAmount(server,connection,ejs); 
+query.getTodoList(server,connection,ejs);
+query.getTodoItems(server,connection,ejs); 
+query.get5TodoItems(server,connection,ejs);
+query.getTodoItemsFilterd(server,connection,ejs);
+query.getSubItems(server,connection,ejs);
+query.getTags(server,connection,ejs);
+query.todoListByTag(server,connection,ejs);
+query.totalPendingAndCompleted(server,connection,ejs);
+query.todosCompletedEachWeek(server,connection,ejs);
+query.tagsFrequency(server,connection,ejs);
+query.averageCompletionTime(server,connection,ejs);
+query.lowerThenAverageCompletionTime(server,connection,ejs);
 
 
