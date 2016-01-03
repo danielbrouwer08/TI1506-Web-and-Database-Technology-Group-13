@@ -1,0 +1,30 @@
+{
+  "name": "todo_dn",
+  "version": "1.0.0",
+  "description": "todo app",
+  "main": "web.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "body-parser": "^1.14.1",
+    "express": "^4.13.3",
+    "jsonfile": "^2.2.3",
+    "mysql": "^2.10.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/danielbrouwer08/TI1506-Web-and-Database-Technology-Group-13.git"
+  },
+  "author": "Nourdin Ait el Mehdi , Daniel Brouwer",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/danielbrouwer08/TI1506-Web-and-Database-Technology-Group-13/issues"
+  },
+  "homepage": "https://github.com/danielbrouwer08/TI1506-Web-and-Database-Technology-Group-13#readme"
+}
