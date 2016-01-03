@@ -35,6 +35,11 @@ server.get("/splash", function (req, res) {
 	res.sendfile("splash.html");
 });
 
+//Send the dashboard html to the client
+server.get("/dashboard", function (req, res) {
+	res.sendfile("dashboard.html");
+});
+
 //Save all Todo's from client in a JSON file (NOT USED ANYMORE)
 server.post("/save", function (req, res) {
 	console.log("data has been posted");
@@ -166,6 +171,17 @@ function ToDo(subject, extraInfo, dueDate, priority, reminderDate, id) {
 
 
 //SQL Queries
+//Query 0:
+server.get("/todosAmount", function (req, res) {
+	var query = "Select Count(*) From todo.todoitem";
+	connection.query(query, function (error, results, fiels) {
+		console.log(error);
+		console.log(results);
+		res.json(results);
+		//
+	});
+});
+
 //Query 1:
 server.get("/getTodoList", function (req, res) {
 	var query = "SELECT TL.* FROM todo.ToDoList as TL, todo.User as U WHERE TL.Owner = U.id AND U.id =" + 1;
