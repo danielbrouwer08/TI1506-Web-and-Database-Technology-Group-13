@@ -1,0 +1,82 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Application</title>
+	</head>
+
+	<body>
+		<header>
+			<img src="images/logo.png" alt="Logo">
+			<nav>
+				<a href="splash.html">HOME</a>|
+				<a href="#">LOGIN</a>|
+				<a href="app.html">APP</a>|
+				<a href="#">REGISTER</a>|
+				<a href="#">CONTACT</a>|
+				<a href="#">HELP</a>
+			</nav>
+		</header>
+		
+		<main>
+			
+			<section class ="showTodo">
+			<h1>Show todo:</h1>
+			
+			<section class="TodayButton">
+				<button>Today</button>
+			</section>
+			
+			<section class="7DaysButton">
+				<button>7Days</button>
+			</section>
+			
+			<section class="MonthButton">
+						<button>Month</button>
+			</section>	
+			
+			<section class="EveryButton">
+				<button>Every thing</button>
+			</section>		
+			
+			</section>
+			
+			<img src="images/Calender.png" alt="Calender">
+			
+			<h1>Add Task</h1>
+			<p>Task description: Subject<br>
+			                 Extra info<br>
+				Date: d-m-year<br>
+				Priority <img src="images/Priority_colors.png" alt="Priority colors"> <br>
+				
+				Reminder date: d-m-year</p>
+			
+			<section class="TodoList">
+			<h1>ToDo:</h1>
+			<div>
+				<ul ID="TodayList">
+					<li> Task Today</li>
+				</ul>
+				
+				<ul id ="7DaysList" >
+					<li>7Days</li>
+				</ul>
+				
+				<ul id= "MonthList">
+					<li>Month</li>
+				</ul>
+			</div>
+			
+			</section>
+			
+		</main>
+		
+		<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+		<script src="app.js"></script>
+		
+		
+	</body>
+
+
+
+
+</html>

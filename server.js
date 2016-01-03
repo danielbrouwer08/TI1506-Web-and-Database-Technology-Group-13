@@ -4,44 +4,60 @@ var url = require("url");
 var http = require("http");
 var bodyparser = require("body-parser");
 var jsonfile = require("jsonfile");
+
+// Self made modules
+var todoAction = require("ToDoActions.js");
+//
 var server;
 
 var ToDoArray = new Array();
 var userData;
 
 var port = 8000;
-server = express();
+
+server = todoAction.server; 
+//server = express();!!!!!!!!!!
 http.createServer(server).listen(port);
 
+/*!!!!!!!!!!!!
 var mysql = require('mysql')
 var connection = mysql.createConnection({
 	host: 'localhost',
 	user: 'root',
 	password: 'webdata',
 	database: 'todo'
-})
+})*/
+
+var connection = todoAction.connection;
 
 server.use(express.static('static'));
 server.use(bodyparser.urlencoded({ extended: true }));
 server.use(bodyparser.json());
 
+
+todoAction.app;
+/*!!!!!!!!!
 //Send the app html to the client
 server.get("/app", function (req, res) {
 	res.sendfile("app.html");
-});
+});*/
 
+todoAction.splash;
+/*!!!!!!!!!!!!
 //Send the splash html to the client
 server.get("/splash", function (req, res) {
 	res.sendfile("splash.html");
-});
+});*/
 
+todoAction.save;
+/*!!!!!!!!!!!!!
 //Save all Todo's from client in a JSON file (NOT USED ANYMORE)
 server.post("/save", function (req, res) {
 	console.log("data has been posted");
 	res.json({ "message": "You posted to the server" });
 	console.log(req.body.list);
 	ToDoArray = (req.body.list);
-});
+});*/
 
 
 //Client sends ToDo to server that has to be saved/altered in the database
@@ -81,6 +97,7 @@ server.post("/saveTodo", function (req, res) {
 });
 
 
+
 //Delete a ToDo from server/database
 server.post("/deleteTodo", function (req, res) {
 	var temptodo = req.body;
@@ -106,6 +123,8 @@ server.post("/createaccount", function (req, res) {
 	});
 });
 
+todoAction.lastId;
+/*!!!!!!!!!!
 //Send the last ID for a todoitem in the database
 server.get("/lastid", function (req, res) {
 
@@ -113,7 +132,8 @@ server.get("/lastid", function (req, res) {
 		console.log("Sending following lastid to the client: " + results[0].maxid);
 		res.json(results[0].maxid);
 	});
-});
+});*/
+
 
 //Send all todo's from the database to the client
 server.get("/getTodo", function (req, res) {
@@ -124,8 +144,8 @@ server.get("/getTodo", function (req, res) {
 		//Fill empty ToDoArray with data from database
 		for (var i = 0; i < results.length; i++) {
 			//Format both Date strings so client understands it
-			var dueDate = dateToString(results[i].DueDate);
-			var completionDate = dateToString(results[i].CompletionDate);
+			var dueDate = todoAction.dateToString(results[i].DueDate);
+			var completionDate = todoAction.dateToString(results[i].CompletionDate);
 
 			//Make new ToDo object from the database data
 			var temp = new ToDo(results[i].Title, results[i].Text, dueDate, results[i].Priority, completionDate, results[i].Id);
@@ -140,6 +160,7 @@ server.get("/getTodo", function (req, res) {
 	
 });
 
+/*
 //Returns string representation of date object that client understands
 function dateToString(date){
 	
@@ -148,7 +169,7 @@ function dateToString(date){
 	var yy = date.getFullYear();
 
 	return (dd + "-" + mm + "-" + yy);
-}
+}*/
 
 
 //Constructor for ToDo object

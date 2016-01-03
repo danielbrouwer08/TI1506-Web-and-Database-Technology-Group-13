@@ -1,0 +1,94 @@
+<!doctype html>
+<html>
+	<head>
+		<title>Application</title>
+	</head>
+
+	<body>
+		<header>
+			<img src="images/logo.png" alt="Logo">
+			<nav>
+				<a href="splash.html">HOME</a>|
+				<a href="#">LOGIN</a>|
+				<a href="app.html">APP</a>|
+				<a href="#">REGISTER</a>|
+				<a href="#">CONTACT</a>|
+				<a href="#">HELP</a>
+			</nav>
+		</header>
+		
+		<main>
+			
+			<section class ="showTodo">
+			<h1>Show todo:</h1>
+			
+			<section class="TodayButton">
+				<button>Today</button>
+			</section>
+			
+			<section class="7DaysButton">
+				<button>7Days</button>
+			</section>
+			
+			<section class="MonthButton">
+						<button>Month</button>
+			</section>	
+			
+			<section class="EveryButton">
+				<button>Every thing</button>
+			</section>		
+			
+			</section>
+			
+			
+			
+			<img src="images/Calender.png" alt="Calender">
+			
+			<section class="AddTask">
+				<h1>Add Task</h1>
+					<p id = "TaskDescIn">Task description <input type="text" value = "Subject"/><p>	
+					<p id = "ExtraInfoIn"> <input type = "text"/><p>
+					<p id = "DateIn"> Date <input type = "text"/><p>
+					
+					Priority <img src="images/Priority_colors.png" alt="Priority colors"> <br>
+					
+					<p id = "ReminderIn">Reminder date <input type = "text"/></p>
+					
+					<section class="AddButton">
+						<button>Add</button>
+					</section>
+			</section>
+			
+			
+			
+			<section class="TodoList">
+			<h1>ToDo:</h1>
+			<div>
+				<ul ID="TodayList">
+					<li> Task Today</li>
+				</ul>
+				
+				<ul id ="7DaysList" >
+					<li>Task 7Days</li>
+				</ul>
+				
+				<ul id= "MonthList">
+					<li>Task Month</li>
+				</ul>
+			</div>
+			
+			</section>
+			
+		</main>
+		
+		<script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+		<script src="http://code.jquery.com/ui/1.11.1/jquery-ui.min.js"></script>
+		<script src="app.js"></script>
+		
+		
+	</body>
+
+
+
+
+</html>
