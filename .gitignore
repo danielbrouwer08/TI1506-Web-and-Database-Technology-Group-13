@@ -1,6 +1,5 @@
 .settings/
 .vscode/
-node_modules/
 typings/
 
 .project
