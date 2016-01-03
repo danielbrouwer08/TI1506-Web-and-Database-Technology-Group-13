@@ -138,7 +138,7 @@ button#Rood.down {
 
 /*Used for unspecified priorities:*/
 .TodoList li {
-	height: 45px;
+	height: 65px;
 	background-color: grey;
 	border: 5px solid black;
 	border-radius: 10px;	
@@ -175,7 +175,7 @@ button#Rood.down {
 	border-radius: 10px;		
 }
 
-.TodoList button {margin:auto; float:right; display:inline;}
+.TodoList li button {margin:auto; float:right; display:inline;}
 
 .legend{
 	position: fixed;

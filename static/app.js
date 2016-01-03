@@ -199,27 +199,27 @@ function sortlist(ToDoArray) {
 		}
 	
 		//Fill the all-list
-		var allTemp = "<li priority=" + ToDoArray[i].priority + " overDue=" + ToDoArray[i].overDue + " done=" + ToDoArray[i].done + ">" + tostring(ToDoArray[i]) + "<section class = \"todoNO" + i + "\"><button id = \"todoNO" + i + "\">REMOVE</button></section>" + "<section class = \"todoDoneNO" + i + "\"> + <button id = \"todoDoneNO" + i + "\">DONE</button></section>" + "<section class = \"todoEditNO" + i + "\"> + <button id = \"todoEditNO" + i + "\">Edit</button></section>" + "</li>"; 
+		var allTemp = "<li priority=" + ToDoArray[i].priority + " overDue=" + ToDoArray[i].overDue + " done=" + ToDoArray[i].done + ">" + tostring(ToDoArray[i]) + "<section class = \"todoNO" + i + "\"><button id = \"todoNO" + i + "\">REMOVE</button></section>" + "<section class = \"todoDoneNO" + i + "\">" + "<button id = \"todoDoneNO" + i + "\">DONE</button></section>" + "<section class = \"todoEditNO" + i + "\">" + "<button id = \"todoEditNO" + i + "\">Edit</button></section>" + "</li>"; 
 		$("#AllList").append(allTemp);
 
 		//Fill the today-list
 		if (temp[0] == dd && temp[1] == mm && temp[2] == yy) //if day, month and year matches add to the todaylist
 		{
-			var temp = "<li priority=" + ToDoArray[i].priority + " overDue=" + ToDoArray[i].overDue + " done=" + ToDoArray[i].done + ">" + tostring(ToDoArray[i]) + "<section class = \"todoNO" + i + "\"><button id = \"todoNO" + i + "\">REMOVE</button></section>" + "<section class = \"todoDoneNO" + i + "\"> + <button id = \"todoDoneNO" + i + "\">DONE</button></section>" + "<section class = \"todoEditNO" + i + "\"> + <button id = \"todoEditNO" + i + "\">Edit</button></section>" +  "</li>"; 
+			var temp = "<li priority=" + ToDoArray[i].priority + " overDue=" + ToDoArray[i].overDue + " done=" + ToDoArray[i].done + ">" + tostring(ToDoArray[i]) + "<section class = \"todoNO" + i + "\"><button id = \"todoNO" + i + "\">REMOVE</button></section>" + "<section class = \"todoDoneNO" + i + "\">" + "<button id = \"todoDoneNO" + i + "\">DONE</button></section>" + "<section class = \"todoEditNO" + i + "\">" + "<button id = \"todoEditNO" + i + "\">Edit</button></section>" +  "</li>"; 
 
 			$("#TodayList").append(temp);
 		}
 		//Fill the week-list
 		if (temp[0] > dd && temp[0] < dd + 7 && temp[1] == mm && temp[2] == yy) 
 		{
-			var temp = "<li priority=" + ToDoArray[i].priority + " overDue=" + ToDoArray[i].overDue + " done=" + ToDoArray[i].done + ">" + tostring(ToDoArray[i]) + "<section class = \"todoNO" + i + "\"><button id = \"todoNO" + i + "\">REMOVE</button></section>" + "<section class = \"todoDoneNO" + i + "\"> + <button id = \"todoDoneNO" + i + "\">DONE</button></section>" + "<section class = \"todoEditNO" + i + "\"> + <button id = \"todoEditNO" + i + "\">Edit</button></section>" + "</li>"; 
+			var temp = "<li priority=" + ToDoArray[i].priority + " overDue=" + ToDoArray[i].overDue + " done=" + ToDoArray[i].done + ">" + tostring(ToDoArray[i]) + "<section class = \"todoNO" + i + "\"><button id = \"todoNO" + i + "\">REMOVE</button></section>" + "<section class = \"todoDoneNO" + i + "\">" + "<button id = \"todoDoneNO" + i + "\">DONE</button></section>" + "<section class = \"todoEditNO" + i + "\">" + "<button id = \"todoEditNO" + i + "\">Edit</button></section>" + "</li>"; 
 			
 			$("#WeekList").append(temp);
 		}
 		//Fill the month-list
 		if (temp[1] == mm && temp[2] == yy)//if month and year matches add to the monthlist
 		{
-			var temp = "<li priority=" + ToDoArray[i].priority + " overDue=" + ToDoArray[i].overDue + " done=" + ToDoArray[i].done + ">" + tostring(ToDoArray[i]) + "<section class = \"todoNO" + i + "\"><button id = \"todoNO" + i + "\">REMOVE</button></section>" + "<section class = \"todoDoneNO" + i + "\"> + <button id = \"todoDoneNO" + i + "\">DONE</button></section>" + "<section class = \"todoEditNO" + i + "\"> + <button id = \"todoEditNO" + i + "\">Edit</button></section>" + "</li>"; 
+			var temp = "<li priority=" + ToDoArray[i].priority + " overDue=" + ToDoArray[i].overDue + " done=" + ToDoArray[i].done + ">" + tostring(ToDoArray[i]) + "<section class = \"todoNO" + i + "\"><button id = \"todoNO" + i + "\">REMOVE</button></section>" + "<section class = \"todoDoneNO" + i + "\">" + "<button id = \"todoDoneNO" + i + "\">DONE</button></section>" + "<section class = \"todoEditNO" + i + "\">" + "<button id = \"todoEditNO" + i + "\">Edit</button></section>" + "</li>"; 
 			
 			$("#MonthList").append(temp);
 		}
