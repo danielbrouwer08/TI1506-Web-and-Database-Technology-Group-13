@@ -7,7 +7,9 @@ var jsonfile = require("jsonfile");
 
 // Self made modules
 var todoAction = require("ToDoActions.js");
+var pages = require("pages.js");
 //
+
 var server;
 
 var ToDoArray = new Array();
@@ -15,8 +17,8 @@ var userData;
 
 var port = 8000;
 
-server = todoAction.server; 
-//server = express();!!!!!!!!!!
+
+server = express();
 http.createServer(server).listen(port);
 
 /*!!!!!!!!!!!!
@@ -35,22 +37,31 @@ server.use(bodyparser.urlencoded({ extended: true }));
 server.use(bodyparser.json());
 
 
-todoAction.app;
+pages.app(server);
 /*!!!!!!!!!
 //Send the app html to the client
 server.get("/app", function (req, res) {
 	res.sendfile("app.html");
 });*/
 
-todoAction.splash;
+pages.splash(server);
 /*!!!!!!!!!!!!
 //Send the splash html to the client
 server.get("/splash", function (req, res) {
 	res.sendfile("splash.html");
 });*/
 
-todoAction.save;
-/*!!!!!!!!!!!!!
+
+pages.dashboard(server);
+/*
+//Send the dashboard html to the client
+server.get("/dashboard", function (req, res) {
+	res.sendfile("dashboard.html");
+});*/
+
+
+todoAction.save(server);
+/*
 //Save all Todo's from client in a JSON file (NOT USED ANYMORE)
 server.post("/save", function (req, res) {
 	console.log("data has been posted");
@@ -123,7 +134,7 @@ server.post("/createaccount", function (req, res) {
 	});
 });
 
-todoAction.lastId;
+todoAction.lastId(server);
 /*!!!!!!!!!!
 //Send the last ID for a todoitem in the database
 server.get("/lastid", function (req, res) {
@@ -187,6 +198,17 @@ function ToDo(subject, extraInfo, dueDate, priority, reminderDate, id) {
 
 
 //SQL Queries
+//Query 0:
+server.get("/todosAmount", function (req, res) {
+	var query = "Select Count(*) From todo.todoitem";
+	connection.query(query, function (error, results, fiels) {
+		console.log(error);
+		console.log(results);
+		res.json(results);
+		//
+	});
+});
+
 //Query 1:
 server.get("/getTodoList", function (req, res) {
 	var query = "SELECT TL.* FROM todo.ToDoList as TL, todo.User as U WHERE TL.Owner = U.id AND U.id =" + 1;
