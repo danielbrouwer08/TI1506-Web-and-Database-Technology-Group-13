@@ -5,7 +5,10 @@ var url = require("url");
 var http = require("http");
 var bodyparser = require("body-parser");
 var jsonfile = require("jsonfile");
-
+var fb = require("fb");
+var passport = require("passport");
+var FacebookStrategy = require("passport-facebook").Strategy;
+var session = require('express-session')
 // Self made modules
 var todoAction = require("ToDoActions.js");
 var pages = require("pages.js");
@@ -21,32 +24,90 @@ var port = 8000;
 
 
 server = express();
-http.createServer(server).listen(port);
-
 var connection = todoAction.connection;
-
-server.use(express.static('static'));
-server.use(bodyparser.urlencoded({ extended: true }));
-server.use(bodyparser.json());
-
 
 //locate views for ejs
 server.set('views', __dirname + '/views');
 server.set('view engine', 'ejs');
+server.use(session({secret: 'secretsession'}));
+server.use(passport.initialize());
+server.use(passport.session());
+server.use(bodyparser.urlencoded({ extended: true }));
+server.use(bodyparser.json());
+server.use(express.static('static'));
 
 
-pages.app(server);
-
+pages.app(server,passport);
 pages.splash(server);
-
-
 pages.dashboard(server);
-
 todoAction.save(server);
+
+passport.use(new FacebookStrategy({
+    clientID: fb.appID,
+    clientSecret: fb.appSecret,
+    callbackURL: fb.callbackUrl,
+    enableProof: false
+  },
+  function(accessToken, refreshToken, profile, done) {
+	var temp = new fbUser(profile.id,profile.displayName);
+    done(null,temp);
+  }
+));
+
+server.get('/login/facebook', passport.authenticate('facebook'));
+
+server.get('/login/facebook/callback',
+  passport.authenticate('facebook', { failureRedirect: '/splash' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+	//console.log(req.user.facebookId);
+    res.redirect('/app');
+  });
+
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+
+passport.deserializeUser(function(user, done) {
+  done(null, user);
+});
+
+  
+  //Send all todo's from the database to the client
+server.get("/getTodo", function (req, res) {
+	var user = req.user;
+	console.log("user");
+	console.log(user.facebookId);
+	console.log("req:");
+	console.log(req);
+	connection.query('Select * From todoitem WHERE todoitem.DueDate is not null and todoitem.CompletionDate is not null', function (error, results, fiels) {
+		console.log(error); //log any errors
+		ToDoArray = [];
+		
+		//Fill empty ToDoArray with data from database
+		for (var i = 0; i < results.length; i++) {
+			//Format both Date strings so client understands it
+			var dueDate = todoAction.dateToString(results[i].DueDate);
+			var completionDate = todoAction.dateToString(results[i].CompletionDate);
+
+			//Make new ToDo object from the database data
+			var temp = new ToDo(results[i].Title, results[i].Text, dueDate, results[i].Priority, completionDate, results[i].Id);
+			temp.done = results[i].Completed;
+			//Add it to the ToDoArray
+			ToDoArray.push(temp);
+		}
+	
+		//Send the whole ToDoArray to the client
+		res.json(ToDoArray);
+	});
+	
+});
 
 //Client sends ToDo to server that has to be saved/altered in the database
 server.post("/saveTodo", function (req, res) {
 	var temptodo = req.body;
+	var id = req.user.facebookId;
+	
 	console.log("The following ToDo has been posted to the server:");
 	console.log(temptodo);
 
@@ -108,32 +169,7 @@ server.post("/createaccount", function (req, res) {
 });
 
 todoAction.lastId(server);
-
-//Send all todo's from the database to the client
-server.get("/getTodo", function (req, res) {
-	connection.query('Select * From todoitem WHERE todoitem.DueDate is not null and todoitem.CompletionDate is not null', function (error, results, fiels) {
-		console.log(error); //log any errors
-		ToDoArray = [];
-		
-		//Fill empty ToDoArray with data from database
-		for (var i = 0; i < results.length; i++) {
-			//Format both Date strings so client understands it
-			var dueDate = todoAction.dateToString(results[i].DueDate);
-			var completionDate = todoAction.dateToString(results[i].CompletionDate);
-
-			//Make new ToDo object from the database data
-			var temp = new ToDo(results[i].Title, results[i].Text, dueDate, results[i].Priority, completionDate, results[i].Id);
-			temp.done = results[i].Completed;
-			//Add it to the ToDoArray
-			ToDoArray.push(temp);
-		}
-	
-		//Send the whole ToDoArray to the client
-		res.json(ToDoArray);
-	});
-	
-});
-
+ 
 
 //Constructor for ToDo object
 function ToDo(subject, extraInfo, dueDate, priority, reminderDate, id) {
@@ -145,6 +181,13 @@ function ToDo(subject, extraInfo, dueDate, priority, reminderDate, id) {
 	this.overDue = 0;
 	this.done = 0;
 	this.id = id;
+}
+
+//Constructor for user
+function fbUser(facebookId,displayName)
+{
+	this.facebookId = facebookId;
+	this.displayName = displayName;
 }
 
 
@@ -166,3 +209,4 @@ query.averageCompletionTime(server,connection,ejs);
 query.lowerThenAverageCompletionTime(server,connection,ejs);
 
 
+http.createServer(server).listen(port);
