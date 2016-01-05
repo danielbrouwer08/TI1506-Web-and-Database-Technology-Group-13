@@ -1,0 +1,10 @@
+<section class="<%=classname %>">
+			<p><%=caption %></p>
+			<ul class="%=classname%_list">
+                <% for (var i = 0; i < results.length; i++) {%>
+				<li>
+                     <%= JSON.stringify(results[i])%>
+                </li>
+				<% } %>
+			</ul>
+ </section>
