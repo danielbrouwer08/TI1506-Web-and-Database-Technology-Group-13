@@ -283,6 +283,33 @@ function sortlist(ToDoArray) {
 	}
 };
 
+
+// Make cookie
+$(".RandomColor").on("click", "button", function () {
+	console.log("RandomColor kliked");
+		$.removeCookie("color");
+		$.cookie("color", getRandomColor(), {expires: new Date(2017,10,10)});
+		location.reload(true)
+	});
+
+
+//$.cookie("color", "green", {expires: new Date(2017,10,10)});
+console.log($.cookie("color"));
+
+//COOKIE CHANGE FONT SIZE
+$(".body").css({"color": $.cookie("color")});
+
+function getRandomColor() {
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+    for (var i = 0; i < 6; i++ ) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+
+
 $(document).ready(function () {
 	//Get lastid from server
 	$.getJSON("/lastid", function (res) {
